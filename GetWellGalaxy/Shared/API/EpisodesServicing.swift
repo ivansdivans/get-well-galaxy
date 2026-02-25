@@ -6,3 +6,7 @@
 //
 
 import Foundation
+
+protocol EpisodesServicing {
+    func fetchEpisodes(page: Int) async throws -> EpisodeResponse
+}

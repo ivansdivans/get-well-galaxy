@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct NetworkClient: Sendable {
+struct NetworkClient {
     private let session: URLSession
     private let decoder: JSONDecoder
     
@@ -19,7 +19,7 @@ struct NetworkClient: Sendable {
         self.decoder = decoder
     }
     
-    func request<T: Decodable & Sendable>(_ request: URLRequest) async throws -> T {
+    func request<T: Decodable>(_ request: URLRequest) async throws -> T {
         do {
             try Task.checkCancellation()
             let (data, response) = try await session.data(for: request)

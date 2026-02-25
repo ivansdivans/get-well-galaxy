@@ -7,19 +7,19 @@
 
 import Foundation
 
-struct EpisodeResponse: Decodable, Sendable {
+struct EpisodeResponse: Decodable {
     let info: EpisodeInfo
     let results: [Episode]
 }
 
-struct EpisodeInfo: Decodable, Sendable {
+struct EpisodeInfo: Decodable {
     let count: Int
     let pages: Int
     let next: String?
     let prev: String?
 }
 
-struct Episode: Identifiable, Equatable, Decodable, Sendable {
+struct Episode: Identifiable, Equatable, Decodable {
     let id: Int
     let name: String
     let airDate: String

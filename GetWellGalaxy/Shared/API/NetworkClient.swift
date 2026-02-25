@@ -11,7 +11,10 @@ struct NetworkClient: Sendable {
     private let session: URLSession
     private let decoder: JSONDecoder
     
-    init(session: URLSession, decoder: JSONDecoder) {
+    init(
+        session: URLSession = .shared,
+        decoder: JSONDecoder = JSONDecoder()
+    ) {
         self.session = session
         self.decoder = decoder
     }

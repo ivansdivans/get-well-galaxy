@@ -9,7 +9,7 @@ import Foundation
 
 struct EpisodeResponse: Decodable, Sendable {
     let info: EpisodeInfo
-    let result: [Episode]
+    let results: [Episode]
 }
 
 struct EpisodeInfo: Decodable, Sendable {

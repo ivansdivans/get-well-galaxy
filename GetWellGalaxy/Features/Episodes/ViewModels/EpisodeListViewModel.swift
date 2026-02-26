@@ -14,13 +14,16 @@ import SwiftUI
     
     private let service: EpisodesServicing
     
-    init(service: EpisodesServicing) {
+    init(
+        service: EpisodesServicing,
+        episodes: [Episode] = []
+    ) {
         self.service = service
+        self.episodes = episodes
     }
     
     func loadInitialIfNeeded() async {
         guard episodes.isEmpty else { return }
-        
         isInitialLoading = true
         defer { isInitialLoading = false }
         

@@ -9,11 +9,14 @@ import Foundation
 import SwiftUI
 
 @Observable final class EpisodeListViewModel {
-    private(set) var episodes: [Episode] = []
+    private(set) var episodes: [Episode]
     private(set) var isInitialLoading = false
-    
+    private(set) var isLoadingMore = false
+    private(set) var hasMorePages = true
+
     private let service: EpisodesServicing
-    
+    private var currentPage = 1
+
     init(
         service: EpisodesServicing,
         episodes: [Episode] = []
@@ -21,15 +24,33 @@ import SwiftUI
         self.service = service
         self.episodes = episodes
     }
-    
+
     func loadInitialIfNeeded() async {
         guard episodes.isEmpty else { return }
         isInitialLoading = true
         defer { isInitialLoading = false }
-        
+        await loadNextPage()
+    }
+
+    func loadNextPage() async {
+        guard hasMorePages, !isLoadingMore else { return }
+
+        isLoadingMore = true
+        defer { isLoadingMore = false }
+
         do {
-            let response = try await service.fetchEpisodes(page: 1)
-            episodes = response.results
+            try Task.checkCancellation()
+            let response = try await service.fetchEpisodes(page: currentPage)
+
+            try Task.checkCancellation()
+            let newItems = response.results.filter { newItem in
+                !episodes.contains(where: { $0.id == newItem.id })
+            }
+            episodes.append(contentsOf: newItems)
+            currentPage += 1
+            hasMorePages = (response.info.next != nil)
+        } catch is CancellationError {
+            return
         } catch {
             print("initial loading error: \(error)")
         }

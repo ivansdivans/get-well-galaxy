@@ -12,8 +12,16 @@ struct EpisodeListView: View {
     
     var body: some View {
         NavigationStack {
-            List(viewModel.episodes) { episode in
-                Text(episode.name)
+            List {
+                ForEach(viewModel.episodes) { episode in
+                    Text(episode.name)
+                }
+
+                EpisodePaginationFooterView(
+                    isLoadingMore: viewModel.isLoadingMore,
+                    hasMorePages: viewModel.hasMorePages,
+                    loadNextPage: { await viewModel.loadNextPage() }
+                )
             }
             .navigationTitle(.episodeListViewTitle)
             .task {

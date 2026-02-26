@@ -17,7 +17,7 @@ struct EpisodeListView: View {
                     Text(episode.name)
                 }
 
-                if !viewModel.isInitialLoading {
+                if !viewModel.isInitialLoading && !viewModel.episodes.isEmpty {
                     EpisodePaginationFooterView(
                         isLoadingMore: viewModel.isLoadingMore,
                         hasMorePages: viewModel.hasMorePages,

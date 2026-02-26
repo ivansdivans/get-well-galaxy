@@ -6,7 +6,6 @@
 //
 
 import Foundation
-import SwiftUI
 
 @Observable final class EpisodeListViewModel {
     private(set) var episodes: [Episode]

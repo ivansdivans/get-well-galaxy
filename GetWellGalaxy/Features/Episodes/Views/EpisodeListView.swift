@@ -15,7 +15,7 @@ struct EpisodeListView: View {
             List(viewModel.episodes) { episode in
                 Text(episode.name)
             }
-            .navigationTitle("Episodes")
+            .navigationTitle(.episodeListViewTitle)
             .task {
                 await viewModel.loadInitialIfNeeded()
             }

@@ -17,11 +17,13 @@ struct EpisodeListView: View {
                     Text(episode.name)
                 }
 
-                EpisodePaginationFooterView(
-                    isLoadingMore: viewModel.isLoadingMore,
-                    hasMorePages: viewModel.hasMorePages,
-                    loadNextPage: { await viewModel.loadNextPage() }
-                )
+                if !viewModel.isInitialLoading {
+                    EpisodePaginationFooterView(
+                        isLoadingMore: viewModel.isLoadingMore,
+                        hasMorePages: viewModel.hasMorePages,
+                        loadNextPage: { await viewModel.loadNextPage() }
+                    )
+                }
             }
             .navigationTitle(.episodeListViewTitle)
             .task {

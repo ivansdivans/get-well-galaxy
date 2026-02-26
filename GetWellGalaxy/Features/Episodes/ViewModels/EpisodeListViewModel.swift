@@ -13,6 +13,7 @@ import SwiftUI
     private(set) var isInitialLoading = false
     private(set) var isLoadingMore = false
     private(set) var hasMorePages = true
+    private(set) var errorMessage: String?
 
     private let service: EpisodesServicing
     private var currentPage = 1
@@ -49,10 +50,27 @@ import SwiftUI
             episodes.append(contentsOf: newItems)
             currentPage += 1
             hasMorePages = (response.info.next != nil)
+            errorMessage = nil
         } catch is CancellationError {
             return
         } catch {
-            print("initial loading error: \(error)")
+            if let apiError = error as? APIError {
+                errorMessage = apiError.localizedDescription
+            } else {
+                errorMessage = "Failed to load episodes."
+            }
         }
+    }
+    
+    func retry() async {
+        if episodes.isEmpty {
+            await loadInitialIfNeeded()
+        } else {
+            await loadNextPage()
+        }
+    }
+
+    func clearError() {
+        errorMessage = nil
     }
 }

@@ -29,6 +29,22 @@ struct EpisodeListView: View {
             .task {
                 await viewModel.loadInitialIfNeeded()
             }
+            .alert(
+                .errorAlertTitle,
+                isPresented: Binding(
+                    get: { viewModel.errorMessage != nil },
+                    set: { if !$0 { viewModel.clearError() } }
+                ), actions: {
+                    Button(.errorAlertRetryButton) {
+                        Task { await viewModel.retry() }
+                    }
+                    Button(.errorAlertCancelButton, role: .cancel) {
+                        viewModel.clearError()
+                    }
+                }, message: {
+                    Text(viewModel.errorMessage ?? "")
+                }
+            )
         }
     }
 }

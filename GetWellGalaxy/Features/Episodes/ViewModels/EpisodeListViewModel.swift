@@ -56,7 +56,7 @@ import Foundation
             if let apiError = error as? APIError {
                 errorMessage = apiError.localizedDescription
             } else {
-                errorMessage = "Failed to load episodes."
+                errorMessage = String(localized: .errorMessageFailedToLoadEpisodes)
             }
         }
     }

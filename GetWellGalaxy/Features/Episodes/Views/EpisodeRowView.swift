@@ -17,11 +17,15 @@ struct EpisodeRowView: View {
             HStack {
                 Text(item.episode)
                     .font(.subheadline)
-                Text(item.airDate)
+                Text(formattedAirDate)
                     .font(.subheadline)
                     .italic()
             }
         }
+    }
+    
+    private var formattedAirDate: String {
+        DateFormatterHelper.formattedDate(from: item.airDate) ?? String(localized: .episodeRowUnknownAirDate)
     }
 }
 

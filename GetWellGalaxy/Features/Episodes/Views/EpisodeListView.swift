@@ -14,7 +14,7 @@ struct EpisodeListView: View {
         NavigationStack {
             List {
                 ForEach(viewModel.episodes) { episode in
-                    Text(episode.name)
+                    EpisodeRowView(item: episode)
                 }
 
                 if !viewModel.isInitialLoading && !viewModel.episodes.isEmpty {

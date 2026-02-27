@@ -12,11 +12,18 @@ struct EpisodeDetailView: View {
     let characterURLs: [String]
     
     var body: some View {
-        List(characterURLs, id: \.self) { character in
-            Text(character)
+        List(characterIDs, id: \.self) { id in
+            HStack {
+                Image(systemName: "person.fill")
+                Text(.episodeDetailViewCharacter(id))
+            }
         }
         .navigationTitle(episodeName)
         .navigationBarTitleDisplayMode(.inline)
+    }
+    
+    private var characterIDs: [Int] {
+        CharacterHelper.getIDs(from: characterURLs)
     }
 }
 

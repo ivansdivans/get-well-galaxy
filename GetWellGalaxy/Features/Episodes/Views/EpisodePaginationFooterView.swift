@@ -20,6 +20,8 @@ struct EpisodePaginationFooterView: View {
                 .onAppear {
                     Task { await loadNextPage() }
                 }
+        } else {
+            endOfListRow
         }
     }
 
@@ -30,12 +32,23 @@ struct EpisodePaginationFooterView: View {
             Spacer()
         }
     }
+    
+    private var endOfListRow: some View {
+        HStack {
+            Spacer()
+            Text(.episodeListViewFooter)
+                .font(.footnote)
+                .foregroundStyle(.gray)
+            Spacer()
+        }
+        .padding(.vertical)
+    }
 }
 
 #Preview {
     EpisodePaginationFooterView(
         isLoadingMore: false,
-        hasMorePages: true,
+        hasMorePages: false,
         loadNextPage: { }
     )
 }

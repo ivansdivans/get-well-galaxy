@@ -14,7 +14,11 @@ struct EpisodeListView: View {
         NavigationStack {
             List {
                 ForEach(viewModel.episodes) { episode in
-                    EpisodeRowView(item: episode)
+                    NavigationLink {
+                        EpisodeDetailView(episodeName: episode.name, characterURLs: episode.characters)
+                    } label: {
+                        EpisodeRowView(item: episode)
+                    }
                 }
 
                 if !viewModel.isInitialLoading && !viewModel.episodes.isEmpty {

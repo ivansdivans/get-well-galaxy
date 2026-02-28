@@ -35,11 +35,11 @@ struct CharacterDetailsView: View {
                     }
                     .frame(height: 300)
                     
-                    Text("Full Name: \(character.name)")
-                    Text("From: \(character.origin.name)")
-                    Text("Species: \(character.species)")
-                    Text("Currently: \(character.status)")
-                    Text("Appears in: \(character.episode.count) episodes")
+                    Text(.characterDetailsViewName(character.name))
+                    Text(.characterDetailsViewOrigin(character.origin.name))
+                    Text(.characterDetailsViewSpecies(character.species))
+                    Text(.characterDetailsViewStatus(character.status))
+                    Text(.characterDetailsViewEpisodes(character.episode.count))
                     Spacer()
                 }
                 .padding(.horizontal, 30)
@@ -47,12 +47,12 @@ struct CharacterDetailsView: View {
                 ProgressView()
             } else {
                 ContentUnavailableView(
-                    "Character not available",
+                    .characterDetailsViewUnavailable,
                     systemImage: "person.slash"
                 )
             }
         }
-        .navigationTitle("Character: \(characterID)")
+        .navigationTitle(.characterDetailsViewNavTitle(characterID))
         .navigationBarTitleDisplayMode(.inline)
         .task {
             await viewModel.loadIfNeeded(id: characterID)

@@ -39,7 +39,7 @@ import Foundation
             if let apiError = error as? APIError {
                 errorMessage = apiError.localizedDescription
             } else {
-                errorMessage = String(localized: "Failed to load character details.")
+                errorMessage = String(localized: .errorCharacterFailedToLoad)
             }
         }
     }

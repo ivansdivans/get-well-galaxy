@@ -9,23 +9,17 @@ import SwiftUI
 
 struct CharacterDetailsView: View {
     let characterID: Int
-    private let service: CharactersServicing = CharactersAPIService()
-    
-    @State private var character: CharacterDetails?
+    @State private var viewModel = CharacterDetailsViewModel(service: CharactersAPIService())
     
     var body: some View {
         VStack {
-            Text("Id: \(characterID)")
-            Text("Character: \(character?.name ?? "unknown")")
-            Text("Is: \(character?.status ?? "unknown")")
+            Text("Character: \(viewModel.character?.name ?? "unknown")")
+            Text("Is: \(viewModel.character?.status ?? "unknown")")
         }
         .navigationTitle("Character: \(characterID)")
+        .navigationBarTitleDisplayMode(.inline)
         .task {
-            do {
-                character = try await service.fetchCharacter(id: characterID)
-            } catch {
-                print("Character fetching error: \(error)")
-            }
+            await viewModel.load(id: characterID)
         }
     }
 }

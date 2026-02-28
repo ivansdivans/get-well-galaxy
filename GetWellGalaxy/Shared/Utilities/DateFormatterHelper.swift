@@ -8,6 +8,7 @@
 import Foundation
 
 enum DateFormatterHelper {
+    // MARK: - Episodes
     private static let apiDateStringFormatter: DateFormatter = {
         let formatter = DateFormatter()
         formatter.locale = Locale(identifier: "en_US_POSIX")
@@ -26,4 +27,12 @@ enum DateFormatterHelper {
         guard let date = apiDateStringFormatter.date(from: rawValue) else { return nil }
         return episodeAirDateFormatter.string(from: date)
     }
+    
+    // MARK: - Export
+    static let exportFileNameDateFormatter: DateFormatter = {
+        let formatter = DateFormatter()
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        formatter.dateFormat = "yyyyMMdd-HHmmss"
+        return formatter
+    }()
 }

@@ -6,10 +6,17 @@
 //
 
 import SwiftUI
+import UniformTypeIdentifiers
 
 struct CharacterDetailsView: View {
     let characterID: Int
+    private let exportService: CharacterExportServicing = CharacterExportService()
+    
     @State private var viewModel = CharacterDetailsViewModel(service: CharactersAPIService())
+    @State private var isExporting = false
+    @State private var exportDocument = CharacterDetailsJson(data: Data())
+    @State private var exportFileName = "character"
+    @State private var exportErrorMessage: String?
 
     var body: some View {
         Group {
@@ -54,8 +61,31 @@ struct CharacterDetailsView: View {
         }
         .navigationTitle(.characterDetailsViewNavTitle(characterID))
         .navigationBarTitleDisplayMode(.inline)
+        .toolbar {
+            ToolbarItem(placement: .topBarTrailing) {
+                Button {
+                    prepareExport()
+                } label: {
+                    Image(systemName: "square.and.arrow.up")
+                }
+                .disabled(viewModel.character == nil)
+            }
+        }
         .task {
             await viewModel.loadIfNeeded(id: characterID)
+        }
+        .fileExporter(
+            isPresented: $isExporting,
+            document: exportDocument,
+            contentType: .json,
+            defaultFilename: exportFileName
+        ) { result in
+            switch result {
+            case .success(let url):
+                print("Character saved to \(url)")
+            case .failure(let error):
+                exportErrorMessage = error.localizedDescription
+            }
         }
         .alert(
             .errorAlertTitle,
@@ -75,6 +105,33 @@ struct CharacterDetailsView: View {
                 Text(viewModel.errorMessage ?? "")
             }
         )
+        .alert(
+            .errorAlertTitle,
+            isPresented: Binding(
+                get: { exportErrorMessage != nil },
+                set: { isPresented in
+                    if isPresented == false { exportErrorMessage = nil }
+                }
+            ), actions: {
+                Button(.errorAlertDefaultButton, role: .cancel) {
+                    exportErrorMessage = nil
+                }
+            }, message: {
+                Text(exportErrorMessage ?? "")
+            }
+        )
+    }
+    
+    private func prepareExport() {
+        guard let character = viewModel.character else { return }
+
+        do {
+            exportDocument = try exportService.makeJson(from: character)
+            exportFileName = exportService.makeDefaultFileName(from: character)
+            isExporting = true
+        } catch {
+            exportErrorMessage = error.localizedDescription
+        }
     }
 }
 

@@ -13,9 +13,13 @@ struct EpisodeDetailView: View {
     
     var body: some View {
         List(characterIDs, id: \.self) { id in
-            HStack {
-                Image(systemName: "person.fill")
-                Text(.episodeDetailViewCharacter(id))
+            NavigationLink {
+                CharacterDetailsView(characterID: id)
+            } label: {
+                HStack {
+                    Image(systemName: "person.fill")
+                    Text(.episodeDetailViewCharacter(id))
+                }
             }
         }
         .navigationTitle(episodeName)

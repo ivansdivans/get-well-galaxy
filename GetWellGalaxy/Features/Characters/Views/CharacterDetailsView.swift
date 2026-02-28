@@ -105,6 +105,21 @@ struct CharacterDetailsView: View {
                 Text(viewModel.errorMessage ?? "")
             }
         )
+        .alert(
+            .errorAlertTitle,
+            isPresented: Binding(
+                get: { exportErrorMessage != nil },
+                set: { isPresented in
+                    if isPresented == false { exportErrorMessage = nil }
+                }
+            ), actions: {
+                Button(.errorAlertDefaultButton, role: .cancel) {
+                    exportErrorMessage = nil
+                }
+            }, message: {
+                Text(exportErrorMessage ?? "")
+            }
+        )
     }
     
     private func prepareExport() {

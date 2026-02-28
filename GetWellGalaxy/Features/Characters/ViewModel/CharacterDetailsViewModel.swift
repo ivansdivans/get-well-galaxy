@@ -18,7 +18,12 @@ import Foundation
         self.service = service
     }
     
-    func load(id: Int) async {
+    func loadIfNeeded(id: Int) async {
+        guard character == nil, !isLoading else { return }
+        await load(id: id)
+    }
+
+    private func load(id: Int) async {
         isLoading = true
         defer { isLoading = false }
         
@@ -37,5 +42,13 @@ import Foundation
                 errorMessage = String(localized: "Failed to load character details.")
             }
         }
+    }
+    
+    func retry(with id: Int) async {
+        await load(id: id)
+    }
+
+    func clearError() {
+        errorMessage = nil
     }
 }

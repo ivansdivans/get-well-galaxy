@@ -37,7 +37,9 @@ struct EpisodeListView: View {
                 .errorAlertTitle,
                 isPresented: Binding(
                     get: { viewModel.errorMessage != nil },
-                    set: { if !$0 { viewModel.clearError() } }
+                    set: { isPresented in
+                        if isPresented == false { viewModel.clearError() }
+                    }
                 ), actions: {
                     Button(.errorAlertRetryButton) {
                         Task { await viewModel.retry() }

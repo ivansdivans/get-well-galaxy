@@ -28,7 +28,8 @@ struct CharacterExportService: CharacterExportServicing {
         let sanitizedName = character.name
             .lowercased()
             .replacingOccurrences(of: " ", with: "-")
+        let timestamp = DateFormatterHelper.exportFileNameDateFormatter.string(from: Date())
         
-        return "character-\(sanitizedName)"
+        return "character-\(sanitizedName)-\(timestamp)"
     }
 }

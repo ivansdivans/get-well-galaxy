@@ -14,7 +14,7 @@ struct EpisodeListHeaderView: View {
         if let lastRefreshedAt {
             Text(
                 .episodeListViewRefreshedAt(
-                    lastRefreshedAt.formatted(date: .abbreviated, time: .shortened)
+                    lastRefreshedAt.formatted(date: .numeric, time: .standard)
                 )
             )
             .font(.footnote)

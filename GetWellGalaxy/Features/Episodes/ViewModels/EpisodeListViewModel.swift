@@ -96,4 +96,31 @@ import Observation
     func clearError() {
         errorMessage = nil
     }
+    
+}
+
+extension EpisodeListViewModel {
+    func refresh() async {
+        errorMessage = nil
+        currentPage = 1
+        hasMorePages = true
+        
+        do {
+            let response = try await service.fetchEpisodes(page: 1)
+            episodes = response.results
+            currentPage = 2
+            hasMorePages = (response.info.next != nil)
+            if !episodes.isEmpty {
+                try await cacheStore.saveEpisodes(episodes)
+            }
+        } catch is CancellationError {
+            return
+        } catch {
+            if let apiError = error as? APIError {
+                errorMessage = apiError.localizedDescription
+            } else {
+                errorMessage = String(localized: .errorEpisodesFailedToLoad)
+            }
+        }
+    }
 }

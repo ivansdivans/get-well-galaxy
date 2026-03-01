@@ -33,6 +33,9 @@ struct EpisodeListView: View {
             .task {
                 await viewModel.loadInitialIfNeeded()
             }
+            .refreshable {
+                await viewModel.refresh()
+            }
             .alert(
                 .errorAlertTitle,
                 isPresented: Binding(

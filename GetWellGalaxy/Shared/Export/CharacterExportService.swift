@@ -8,7 +8,7 @@
 import Foundation
 
 struct CharacterExportService: CharacterExportServicing {
-    func makeJson(from character: CharacterDetails) throws -> CharacterDetailsJson {
+    func makeJSON(from character: CharacterDetails) throws -> CharacterDetailsJson {
         let payload = CharacterExportPayload(
             name: character.name,
             status: character.status,

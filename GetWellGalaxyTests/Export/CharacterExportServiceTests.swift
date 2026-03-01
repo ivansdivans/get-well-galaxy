@@ -11,7 +11,7 @@ import Testing
 
 struct CharacterExportServiceTests {
 
-    @Test func makeJson_containsRequiredCharacterFields() throws {
+    @Test func makeJSON_containsRequiredCharacterFields() throws {
         let sut = CharacterExportService()
         let character = CharacterDetails(
             id: 1,
@@ -25,7 +25,7 @@ struct CharacterExportServiceTests {
                 "https://sometrumanapi.com/api/episode/2"
             ]
         )
-        let jsonDocument = try sut.makeJson(from: character)
+        let jsonDocument = try sut.makeJSON(from: character)
         let decoded = try JSONDecoder().decode(CharacterExportPayload.self, from: jsonDocument.data)
         
         #expect(decoded == CharacterExportPayload(

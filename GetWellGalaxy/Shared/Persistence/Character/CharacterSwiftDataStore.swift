@@ -19,7 +19,7 @@ actor CharacterSwiftDataStore: CharacterPersisting {
     
     func loadCharacter(id: Int) async throws -> CharacterDetails? {
         let context = ModelContext(container)
-        var descriptor = FetchDescriptor<CharacterPersistenceModel>(
+        let descriptor = FetchDescriptor<CharacterPersistenceModel>(
             predicate: #Predicate { $0.id == id }
         )
 
@@ -40,8 +40,9 @@ actor CharacterSwiftDataStore: CharacterPersisting {
     
     func saveCharacter(_ character: CharacterDetails) async throws {
         let context = ModelContext(container)
-        var descriptor = FetchDescriptor<CharacterPersistenceModel>(
-            predicate: #Predicate { $0.id == character.id }
+        let characterID = character.id
+        let descriptor = FetchDescriptor<CharacterPersistenceModel>(
+            predicate: #Predicate { $0.id == characterID }
         )
 
         if let existing = try context.fetch(descriptor).first {

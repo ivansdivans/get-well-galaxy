@@ -15,8 +15,9 @@ final class CharacterPersistenceModel {
     var status: String
     var species: String
     var originName: String
+    var originURL: String
     var image: String
-    var episodeCount: Int
+    var episodes: [String]
     
     init(
         id: Int,
@@ -24,15 +25,17 @@ final class CharacterPersistenceModel {
         status: String,
         species: String,
         originName: String,
+        originURL: String,
         image: String,
-        episodeCount: Int
+        episodes: [String]
     ) {
         self.id = id
         self.name = name
         self.status = status
         self.species = species
         self.originName = originName
+        self.originURL = originURL
         self.image = image
-        self.episodeCount = episodeCount
+        self.episodes = episodes
     }
 }

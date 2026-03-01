@@ -22,7 +22,7 @@ import Observation
 
     init(
         service: EpisodesServicing = EpisodesAPIService(),
-        cacheStore: EpisodesPersisting = EpisodesCacheStore.shared,
+        cacheStore: EpisodesPersisting = EpisodesSwiftDataStore.shared,
         episodes: [Episode] = []
     ) {
         self.service = service

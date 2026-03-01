@@ -13,7 +13,7 @@ struct EpisodesBackgroundRefreshWorker {
     
     init(
         episodesService: EpisodesServicing = EpisodesAPIService(),
-        episodesStore: EpisodesPersisting = EpisodesCacheStore.shared
+        episodesStore: EpisodesPersisting = EpisodesSwiftDataStore.shared
     ) {
         self.episodesService = episodesService
         self.episodesStore = episodesStore

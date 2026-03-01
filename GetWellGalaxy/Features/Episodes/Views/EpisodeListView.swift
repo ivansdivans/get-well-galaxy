@@ -13,6 +13,8 @@ struct EpisodeListView: View {
     var body: some View {
         NavigationStack {
             List {
+                EpisodeListHeaderView(lastRefreshedAt: viewModel.lastRefreshedAt)
+                
                 ForEach(viewModel.episodes) { episode in
                     NavigationLink {
                         EpisodeDetailView(episodeName: episode.name, characterURLs: episode.characters)

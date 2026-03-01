@@ -8,7 +8,7 @@
 import SwiftUI
 
 struct EpisodeListView: View {
-    @State private var viewModel = EpisodeListViewModel(service: EpisodesAPIService())
+    @State private var viewModel = EpisodeListViewModel()
     
     var body: some View {
         NavigationStack {

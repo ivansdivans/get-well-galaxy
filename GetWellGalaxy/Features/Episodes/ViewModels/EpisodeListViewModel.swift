@@ -21,7 +21,7 @@ import Observation
     private var currentPage = 1
 
     init(
-        service: EpisodesServicing,
+        service: EpisodesServicing = EpisodesAPIService(),
         cacheStore: EpisodesPersisting = EpisodesCacheStore.shared,
         episodes: [Episode] = []
     ) {

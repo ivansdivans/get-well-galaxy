@@ -7,7 +7,6 @@
 
 import Foundation
 
-// TODO: rename to Character
 struct CharacterDetails: Decodable, Equatable {
     let id: Int
     let name: String

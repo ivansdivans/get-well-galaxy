@@ -10,9 +10,22 @@
 		A95C63CD2F4E1BE9004E49DD /* GetWellGalaxy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = GetWellGalaxy.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		A9D574812F5431380020C156 /* Exceptions for "GetWellGalaxy" folder in "GetWellGalaxy" target */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = A95C63CC2F4E1BE9004E49DD /* GetWellGalaxy */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
 /* Begin PBXFileSystemSynchronizedRootGroup section */
 		A95C63CF2F4E1BE9004E49DD /* GetWellGalaxy */ = {
 			isa = PBXFileSystemSynchronizedRootGroup;
+			exceptions = (
+				A9D574812F5431380020C156 /* Exceptions for "GetWellGalaxy" folder in "GetWellGalaxy" target */,
+			);
 			path = GetWellGalaxy;
 			sourceTree = "<group>";
 		};
@@ -258,6 +271,7 @@
 				DEVELOPMENT_TEAM = PK787V25R6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GetWellGalaxy/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -290,6 +304,7 @@
 				DEVELOPMENT_TEAM = PK787V25R6;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = GetWellGalaxy/Info.plist;
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

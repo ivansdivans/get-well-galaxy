@@ -7,7 +7,7 @@
 
 import Foundation
 
-enum APIError: LocalizedError, Sendable {
+enum APIError: LocalizedError {
     case invalidURL
     case invalidResponse
     case invalidStatusCode(Int)

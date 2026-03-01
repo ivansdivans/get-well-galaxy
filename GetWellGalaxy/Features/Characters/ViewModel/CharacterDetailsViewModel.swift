@@ -18,7 +18,7 @@ import Observation
     private let cacheStore: CharacterPersisting
     
     init(
-        service: CharacterServicing,
+        service: CharacterServicing = CharacterAPIService(),
         cacheStore: CharacterPersisting = CharacterSwiftDataStore.shared
     ) {
         self.service = service

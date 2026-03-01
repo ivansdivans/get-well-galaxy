@@ -113,6 +113,7 @@ extension EpisodeListViewModel {
         hasMorePages = true
         
         do {
+            try Task.checkCancellation()
             let response = try await service.fetchEpisodes(page: 1)
             episodes = response.results
             currentPage = 2

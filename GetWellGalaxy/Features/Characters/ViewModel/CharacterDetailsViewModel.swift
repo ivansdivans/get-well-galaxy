@@ -6,7 +6,9 @@
 //
 
 import Foundation
+import Observation
 
+@MainActor
 @Observable final class CharacterDetailsViewModel {
     private(set) var character: CharacterDetails?
     private(set) var isLoading = false

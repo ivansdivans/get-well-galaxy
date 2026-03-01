@@ -23,7 +23,7 @@ struct GetWellGalaxyApp: App {
             }
         }
         .backgroundTask(.appRefresh(BackgroundRefreshConfig.taskIdentifier)) {
-            let worker = EpisodesBackgroundRefreshWorker(episodesService: EpisodesAPIService())
+            let worker = EpisodesBackgroundRefreshWorker()
             _ = await worker.refreshAllEpisodes()
             
             BackgroundRefreshScheduler.scheduleAppRefresh()

@@ -17,20 +17,38 @@ import Observation
     private(set) var errorMessage: String?
 
     private let service: EpisodesServicing
+    private let cacheStore: EpisodesPersisting
     private var currentPage = 1
 
     init(
         service: EpisodesServicing,
+        cacheStore: EpisodesPersisting = EpisodesCacheStore.shared,
         episodes: [Episode] = []
     ) {
         self.service = service
+        self.cacheStore = cacheStore
         self.episodes = episodes
     }
 
     func loadInitialIfNeeded() async {
         guard episodes.isEmpty else { return }
+        
+        do {
+            let cached = try await cacheStore.loadEpisodes()
+            if !cached.isEmpty {
+                episodes = cached
+                hasMorePages = true
+                currentPage = 1
+            }
+        } catch is CancellationError {
+            return
+        } catch {
+            // Keep silent for mvp phase
+        }
+        
         isInitialLoading = true
         defer { isInitialLoading = false }
+        
         await loadNextPage()
     }
 
@@ -52,6 +70,10 @@ import Observation
             currentPage += 1
             hasMorePages = (response.info.next != nil)
             errorMessage = nil
+            
+            if !episodes.isEmpty {
+                try await cacheStore.saveEpisodes(episodes)
+            }
         } catch is CancellationError {
             return
         } catch {

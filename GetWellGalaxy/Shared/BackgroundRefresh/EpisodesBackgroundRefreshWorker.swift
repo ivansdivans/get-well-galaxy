@@ -9,10 +9,14 @@ import Foundation
 
 struct EpisodesBackgroundRefreshWorker {
     private let episodesService: EpisodesServicing
-    // TODO: add EpisodesPersisting protocol and json file implementation for mvp phase
+    private let episodesStore: EpisodesPersisting
     
-    init(episodesService: EpisodesServicing) {
+    init(
+        episodesService: EpisodesServicing = EpisodesAPIService(),
+        episodesStore: EpisodesPersisting = EpisodesCacheStore.shared
+    ) {
         self.episodesService = episodesService
+        self.episodesStore = episodesStore
     }
     
     func refreshAllEpisodes() async -> Bool {
@@ -29,7 +33,9 @@ struct EpisodesBackgroundRefreshWorker {
                 page += 1
             }
             
-            // TODO: add episodes saving to json
+            try Task.checkCancellation()
+            try await episodesStore.saveEpisodes(allEpisodes)
+            
             return !Task.isCancelled
         } catch {
             return false

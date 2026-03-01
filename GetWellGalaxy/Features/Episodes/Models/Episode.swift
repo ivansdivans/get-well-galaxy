@@ -19,7 +19,7 @@ struct EpisodeInfo: Decodable {
     let prev: String?
 }
 
-struct Episode: Identifiable, Equatable, Decodable {
+struct Episode: Identifiable, Equatable, Codable {
     let id: Int
     let name: String
     let airDate: String

@@ -126,7 +126,7 @@ struct CharacterDetailsView: View {
         guard let character = viewModel.character else { return }
 
         do {
-            exportDocument = try exportService.makeJson(from: character)
+            exportDocument = try exportService.makeJSON(from: character)
             exportFileName = exportService.makeDefaultFileName(from: character)
             isExporting = true
         } catch {

@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CharacterExportPayload: Codable {
+struct CharacterExportPayload: Codable, Equatable {
     let name: String
     let status: String
     let species: String

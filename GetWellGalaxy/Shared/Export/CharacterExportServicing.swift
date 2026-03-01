@@ -8,6 +8,6 @@
 import Foundation
 
 protocol CharacterExportServicing {
-    func makeJson(from character: CharacterDetails) throws -> CharacterDetailsJson
+    func makeJSON(from character: CharacterDetails) throws -> CharacterDetailsJson
     func makeDefaultFileName(from character: CharacterDetails) -> String
 }

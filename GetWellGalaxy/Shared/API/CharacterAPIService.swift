@@ -1,5 +1,5 @@
 //
-//  CharactersAPIService.swift
+//  CharacterAPIService.swift
 //  GetWellGalaxy
 //
 //  Created by Ivans Mihailovs on 28/02/2026.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CharactersAPIService: CharactersServicing {
+struct CharacterAPIService: CharacterServicing {
     private let networkClient: NetworkClient
     
     init(networkClient: NetworkClient = NetworkClient()) {

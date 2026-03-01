@@ -14,9 +14,9 @@ import Observation
     private(set) var isLoading = false
     private(set) var errorMessage: String?
     
-    private let service: CharactersServicing
+    private let service: CharacterServicing
     
-    init(service: CharactersServicing) {
+    init(service: CharacterServicing) {
         self.service = service
     }
     

@@ -15,6 +15,7 @@ import Observation
     private(set) var isLoadingMore = false
     private(set) var hasMorePages = true
     private(set) var errorMessage: String?
+    private(set) var lastRefreshedAt: Date?
 
     private let service: EpisodesServicing
     private let cacheStore: EpisodesPersisting
@@ -57,22 +58,28 @@ import Observation
 
         isLoadingMore = true
         defer { isLoadingMore = false }
-
+        let pageToLoad = currentPage
+        
         do {
             try Task.checkCancellation()
-            let response = try await service.fetchEpisodes(page: currentPage)
+            let response = try await service.fetchEpisodes(page: pageToLoad)
 
             try Task.checkCancellation()
             let newItems = response.results.filter { newItem in
                 !episodes.contains(where: { $0.id == newItem.id })
             }
             episodes.append(contentsOf: newItems)
-            currentPage += 1
+            
+            currentPage = pageToLoad + 1
             hasMorePages = (response.info.next != nil)
             errorMessage = nil
             
             if !episodes.isEmpty {
                 try await cacheStore.saveEpisodes(episodes)
+            }
+            
+            if pageToLoad == 1 {
+                lastRefreshedAt = .now
             }
         } catch is CancellationError {
             return
@@ -110,9 +117,11 @@ extension EpisodeListViewModel {
             episodes = response.results
             currentPage = 2
             hasMorePages = (response.info.next != nil)
+            
             if !episodes.isEmpty {
                 try await cacheStore.saveEpisodes(episodes)
             }
+            lastRefreshedAt = .now
         } catch is CancellationError {
             return
         } catch {

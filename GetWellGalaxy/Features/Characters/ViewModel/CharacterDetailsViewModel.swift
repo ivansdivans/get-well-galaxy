@@ -15,13 +15,33 @@ import Observation
     private(set) var errorMessage: String?
     
     private let service: CharacterServicing
+    private let cacheStore: CharacterPersisting
     
-    init(service: CharacterServicing) {
+    init(
+        service: CharacterServicing,
+        cacheStore: CharacterPersisting = CharacterSwiftDataStore.shared
+    ) {
         self.service = service
+        self.cacheStore = cacheStore
     }
     
     func loadIfNeeded(id: Int) async {
-        guard character == nil, !isLoading else { return }
+        guard !isLoading else {
+            return
+        }
+        
+        if character == nil {
+            do {
+                if let cached = try await cacheStore.loadCharacter(id: id) {
+                    character = cached
+                }
+            } catch is CancellationError {
+                return
+            } catch {
+                // Keep silent for mvp phase
+            }
+        }
+        
         await load(id: id)
     }
 
@@ -31,10 +51,10 @@ import Observation
         
         do {
             try Task.checkCancellation()
-            let reponse = try await service.fetchCharacter(id: id)
-            
-            character = reponse
+            let response = try await service.fetchCharacter(id: id)
+            character = response
             errorMessage = nil
+            try await cacheStore.saveCharacter(response)
         } catch is CancellationError {
             return
         } catch {

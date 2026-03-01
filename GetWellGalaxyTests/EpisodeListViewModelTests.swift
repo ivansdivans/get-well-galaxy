@@ -11,9 +11,10 @@ import Testing
 struct EpisodeListViewModelTests {
 
     @MainActor
-    @Test func refresh_fetchesEpisodes() async throws {
-        let service = EpisodesServiceMock()
-        let episodes = [
+    @Test func refresh_fetchesAndCachesEpisodes() async throws {
+        let serviceMock = EpisodesServiceMock()
+        let storeMock = EpisodesStoreMock()
+        let episodesMock = [
             Episode(
                 id: 1,
                 name: "Good Afternoon, Good Evening and Good Night",
@@ -30,18 +31,19 @@ struct EpisodeListViewModelTests {
             )
         ]
         let response = EpisodeResponse(
-            info: EpisodeInfo(count: episodes.count, pages: 1, next: nil, prev: nil),
-            results: episodes
+            info: EpisodeInfo(count: episodesMock.count, pages: 1, next: nil, prev: nil),
+            results: episodesMock
         )
-        service.result = .success(response)
+        serviceMock.result = .success(response)
+        let sut = EpisodeListViewModel(service: serviceMock, cacheStore: storeMock)
         
-        let sut = EpisodeListViewModel(service: service)
         await sut.refresh()
         
-        #expect(sut.episodes == episodes)
+        #expect(sut.episodes == episodesMock)
         #expect(sut.hasMorePages == false)
         #expect(sut.errorMessage == nil)
-        #expect(service.requestedPages == [1])
+        #expect(serviceMock.requestedPages == [1])
+        #expect(await storeMock.lastSavedEpisodes() == episodesMock)
     }
 
 }

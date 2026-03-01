@@ -11,8 +11,6 @@ import SwiftUI
 struct GetWellGalaxyApp: App {
     @Environment(\.scenePhase) private var scenePhase
     
-    // TODO: create private constant that holds data persistance store
-    
     var body: some Scene {
         WindowGroup {
             EpisodeListView()

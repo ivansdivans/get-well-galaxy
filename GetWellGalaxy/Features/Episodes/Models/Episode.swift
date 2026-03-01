@@ -25,11 +25,9 @@ struct Episode: Identifiable, Equatable, Codable {
     let airDate: String
     let episode: String
     let characters: [String]
-    let url: String
-    let created: String
 
     enum CodingKeys: String, CodingKey {
-        case id, name, episode, characters, url, created
+        case id, name, episode, characters
         case airDate = "air_date"
     }
 }

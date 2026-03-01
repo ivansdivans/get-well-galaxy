@@ -36,9 +36,7 @@ struct EpisodeRowView: View {
             name: "Example episode",
             airDate: "January 1, 2026",
             episode: "S0E0",
-            characters: ["some-url-1", "some-url-2"],
-            url: "some-url",
-            created: "March 1, 2026"
+            characters: ["some-url-1", "some-url-2"]
         )
     )
 }

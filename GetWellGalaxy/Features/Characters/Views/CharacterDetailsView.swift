@@ -12,7 +12,7 @@ struct CharacterDetailsView: View {
     let characterID: Int
     private let exportService: CharacterExportServicing = CharacterExportService()
     
-    @State private var viewModel = CharacterDetailsViewModel(service: CharactersAPIService())
+    @State private var viewModel = CharacterDetailsViewModel()
     @State private var isExporting = false
     @State private var exportDocument = CharacterDetailsJson(data: Data())
     @State private var exportFileName = "character"

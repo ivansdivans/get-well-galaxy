@@ -6,7 +6,9 @@
 //
 
 import Foundation
+import Observation
 
+@MainActor
 @Observable final class EpisodeListViewModel {
     private(set) var episodes: [Episode]
     private(set) var isInitialLoading = false

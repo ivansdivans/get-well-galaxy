@@ -42,11 +42,24 @@ struct CharacterDetailsView: View {
                     }
                     .frame(height: 300)
                     
-                    Text(.characterDetailsViewName(character.name))
-                    Text(.characterDetailsViewOrigin(character.origin.name))
-                    Text(.characterDetailsViewSpecies(character.species))
-                    Text(.characterDetailsViewStatus(character.status))
-                    Text(.characterDetailsViewEpisodes(character.episode.count))
+                    CharacterCardRow(
+                        label: .characterDetailsViewNameLabel,
+                        value: character.name)
+                    CharacterCardRow(
+                        label: .characterDetailsViewOriginLabel,
+                        value: character.origin.name)
+                    CharacterCardRow(
+                        label: .characterDetailsViewSpeciesLabel,
+                        value: character.species)
+                    CharacterCardRow(
+                        label: .characterDetailsViewStatusLabel,
+                        value: character.status)
+                    CharacterCardRow(
+                        label: .characterDetailsViewEpisodesLabel,
+                        value: String(
+                            localized: .characterDetailsViewEpisodesValue(character.episode.count)
+                        )
+                    )
                     Spacer()
                 }
                 .padding(.horizontal, 30)

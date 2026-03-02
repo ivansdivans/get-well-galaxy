@@ -14,6 +14,7 @@ The creator of this app follows the coding standards listed below:
 - Model-View-ViewModel architecture
 - Feature-focused file organisation
 - Protocol-oriented programming (we want implementations to be easily swappable and our code lightweight by using `struct`s)
+- Minimal deployment target iOS 18
 - Language mode "Swift 6" (don't you dare to switch to "Swift 5")
 - Approachable Concurrency **enabled**
 - Default actor isolation `nonisolated` (because we have some background tasks)

@@ -2,7 +2,7 @@
 
 <img width="20%" alt="GetWellGalaxyIcon-iOS-Default-1024x1024@1x" src="https://github.com/user-attachments/assets/d56a6f15-22a3-40aa-a868-611edfb8f74d" />
 
-"GetWellGalaxy" app is your portal to the better days. We realise how daunting it is to be sick for a while. Open the app to browse your favorite Rick and Morty episodes. Dig deeper and explore hundreds of characters. We even have an option to export your favorite characters, so the rest of the world can hear about them.
+"GetWellGalaxy" app is your portal to better days. We realize how daunting it is to be sick for a while. Open the app to browse your favorite "Rick and Morty" episodes. Dig deeper and explore hundreds of characters. We even provide an option to export your favorite characters so the rest of the world can hear about them.
 
 ## Curious what's inside?
 
@@ -10,10 +10,10 @@
 
 ## Contribution
 
-Creator of this app prefres structure when it comes to precesses:
+The creator of this app follows the coding standards listed below:
 - Model-View-ViewModel architecture
 - Feature-focused file organisation
-- Protocol-oriented programming (we want those implementations to be easily swappeble and our code lightweight with `struct`s)
+- Protocol-oriented programming (we want implementations to be easily swappable and our code lightweight by using `struct`s)
 - Language mode "Swift 6" (don't you dare to switch to "Swift 5")
 - Approachable Concurrency **enabled**
 - Default actor isolation `nonisolated` (because we have some background tasks)
@@ -21,14 +21,14 @@ Creator of this app prefres structure when it comes to precesses:
 - SwiftUI for UI
 - SwiftData for persistence
 - Swift Testing for unit tests
-- Fetch data from [Rick & Morty API](https://rickandmortyapi.com/documentation#rest)
-- SPM over CocoaPods (we know latter will be read-only as of 2 Dec 2026)
+- Data fetched from the [Rick & Morty API](https://rickandmortyapi.com/documentation#rest)
+- SPM over CocoaPods (we know the latter will be read-only as of December 2, 2026)
 - [GitHub-Flow](https://medium.com/@sreekanth.thummala/choosing-the-right-git-branching-strategy-a-comparative-analysis-f5e635443423) for branching strategy
 	- `main` is protected branch from which release can be triggered
 	- Use `feature/<short-feature-description>` for features
 	- Use `bugfix/<short-bugfix-description>` for bug fixes
-- Create separate PRs for each feature and bug fix proposal
+- Create separate PRs for each feature and bug-fix proposal
 
 ## Feedback
 
-Reach out to creator [Ivans Mihailovs](https://github.com/ivansdivans) or [create an issue](https://github.com/ivansdivans/get-well-galaxy/issues).
+Reach out to the creator [Ivans Mihailovs](https://github.com/ivansdivans) or [create an issue](https://github.com/ivansdivans/get-well-galaxy/issues).

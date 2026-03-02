@@ -4,7 +4,7 @@
 
 ## Curious what's inside?
 
-| screen-1 | screen-2 | screen-3 |
+| <img width="30%" alt="homescreen-episodes-list" src="https://github.com/user-attachments/assets/2c33eaac-60a7-445d-9efa-7fab5d33cae6" /> | <img width="30%" alt="episode-details" src="https://github.com/user-attachments/assets/fde6d8b0-1692-421f-b050-0ded911db38f" /> | <img width="30%" alt="character-details" src="https://github.com/user-attachments/assets/b90516fc-33bc-4f42-b395-ce9ab2fdcc49" /> |
 
 ## Contribution
 

@@ -26,3 +26,7 @@ Creator of this app prefres structure when it comes to precesses:
 	- Use `feature/<short-feature-description>` for features
 	- Use `bugfix/<short-bugfix-description>` for bug fixes
 - Create separate PRs for each feature and bug fix proposal
+
+## Feedback
+
+Reach out to creator [Ivans Mihailovs](https://github.com/ivansdivans) or [create an issue](https://github.com/ivansdivans/get-well-galaxy/issues).

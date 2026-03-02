@@ -1,5 +1,7 @@
 # GetWellGalaxy
 
+<img width="20%" alt="GetWellGalaxyIcon-iOS-Default-1024x1024@1x" src="https://github.com/user-attachments/assets/d56a6f15-22a3-40aa-a868-611edfb8f74d" />
+
 "GetWellGalaxy" app is your portal to the better days. We realise how daunting it is to be sick for a while. Open the app to browse your favorite Rick and Morty episodes. Dig deeper and explore hundreds of characters. We even have an option to export your favorite characters, so the rest of the world can hear about them.
 
 ## Curious what's inside?

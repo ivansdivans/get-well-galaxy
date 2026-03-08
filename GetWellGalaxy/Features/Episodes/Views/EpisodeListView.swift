@@ -27,6 +27,7 @@ struct EpisodeListView: View {
                     EpisodePaginationFooterView(
                         isLoadingMore: viewModel.isLoadingMore,
                         hasMorePages: viewModel.hasMorePages,
+                        canAutoLoadNextPage: viewModel.canAutoLoadNextPage,
                         loadNextPage: { await viewModel.loadNextPage() }
                     )
                 }

@@ -16,6 +16,7 @@ import Observation
     private(set) var hasMorePages = true
     private(set) var errorMessage: String?
     private(set) var lastRefreshedAt: Date?
+    private(set) var paginationBlockedByError = false
 
     private let service: EpisodesServicing
     private let cacheStore: EpisodesPersisting
@@ -29,6 +30,10 @@ import Observation
         self.service = service
         self.cacheStore = cacheStore
         self.episodes = episodes
+    }
+    
+    var canAutoLoadNextPage: Bool {
+        hasMorePages && !isLoadingMore && !paginationBlockedByError
     }
 
     func loadInitialIfNeeded() async {
@@ -53,9 +58,10 @@ import Observation
         await loadNextPage()
     }
 
-    func loadNextPage() async {
+    func loadNextPage(isUserInitiated: Bool = false) async {
         guard hasMorePages, !isLoadingMore else { return }
-
+        if !isUserInitiated && paginationBlockedByError { return }
+        
         isLoadingMore = true
         defer { isLoadingMore = false }
         let pageToLoad = currentPage
@@ -73,6 +79,7 @@ import Observation
             currentPage = pageToLoad + 1
             hasMorePages = (response.info.next != nil)
             errorMessage = nil
+            paginationBlockedByError = false
             
             if !episodes.isEmpty {
                 try await cacheStore.saveEpisodes(episodes)
@@ -89,6 +96,10 @@ import Observation
             } else {
                 errorMessage = String(localized: .errorEpisodesFailedToLoad)
             }
+
+            if !episodes.isEmpty {
+                paginationBlockedByError = true
+            }
         }
     }
     
@@ -96,7 +107,8 @@ import Observation
         if episodes.isEmpty {
             await loadInitialIfNeeded()
         } else {
-            await loadNextPage()
+            paginationBlockedByError = false
+            await loadNextPage(isUserInitiated: true)
         }
     }
 
@@ -111,6 +123,7 @@ extension EpisodeListViewModel {
         errorMessage = nil
         currentPage = 1
         hasMorePages = true
+        paginationBlockedByError = false
         
         do {
             try Task.checkCancellation()
@@ -130,6 +143,10 @@ extension EpisodeListViewModel {
                 errorMessage = apiError.localizedDescription
             } else {
                 errorMessage = String(localized: .errorEpisodesFailedToLoad)
+            }
+
+            if !episodes.isEmpty {
+                paginationBlockedByError = true
             }
         }
     }

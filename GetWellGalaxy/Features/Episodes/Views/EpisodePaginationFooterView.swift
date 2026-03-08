@@ -10,6 +10,7 @@ import SwiftUI
 struct EpisodePaginationFooterView: View {
     let isLoadingMore: Bool
     let hasMorePages: Bool
+    let canAutoLoadNextPage: Bool
     let loadNextPage: () async -> Void
 
     var body: some View {
@@ -18,6 +19,7 @@ struct EpisodePaginationFooterView: View {
         } else if hasMorePages {
             footerRow
                 .onAppear {
+                    guard canAutoLoadNextPage else { return }
                     Task { await loadNextPage() }
                 }
         } else {
@@ -49,6 +51,7 @@ struct EpisodePaginationFooterView: View {
     EpisodePaginationFooterView(
         isLoadingMore: false,
         hasMorePages: false,
+        canAutoLoadNextPage: true,
         loadNextPage: { }
     )
 }
